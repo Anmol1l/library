@@ -1,0 +1,43 @@
+* {
+    margin: 0px;
+}
+
+header h1 {
+    padding: 30px;
+    color: white;
+    background-color: rgb(208, 85, 85);
+}
+
+.dialog-addBook {
+    margin: auto;   
+}
+
+.dialog-addBook form {
+    border: 1px solid black;
+    padding: 20px;
+    width: 400px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form div.status{
+    display: block;
+}
+
+form .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+form button {
+    width: 50vw;
+
+}
