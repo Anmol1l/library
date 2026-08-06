@@ -2,8 +2,8 @@ const myLibrary = [];
 
 function Book(title, author, pages, status) {
 
-    if(!new.target) {
-        throw Error ("You must use the 'new' operator to call the constructor");
+    if (!new.target) {
+        throw Error("You must use the 'new' operator to call the constructor");
     }
 
     this.title = title;
@@ -38,7 +38,7 @@ function getPages() {
 }
 
 function getStatus() {
-    
+
     const status = document.querySelector('#status').checked;
     return status;
 
@@ -52,8 +52,9 @@ function createBookCard(myLibrary) {
 
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
+    bookCard.dataset.id = book.id;
 
-    if(book.status){
+    if (book.status) {
         bookCard.classList.add('read');
     }
     else {
@@ -79,7 +80,7 @@ function createBookCard(myLibrary) {
 
     bookInfo.appendChild(author);
     bookInfo.appendChild(pages);
-    
+
     const statusDelete = document.createElement('div');
     statusDelete.classList.add('status-delete');
     statusDelete.innerHTML = `
@@ -88,8 +89,20 @@ function createBookCard(myLibrary) {
     `;
     bookInfo.appendChild(statusDelete);
 
+
+
     bookCard.appendChild(bookInfo);
     main.appendChild(bookCard);
+
+    const deleteBtn = statusDelete.querySelector('.delete');
+
+    deleteBtn.addEventListener("click", () => {
+        const index = findArrayIndex(bookCard.dataset.id);
+        bookCard.remove();
+        myLibrary.splice(index,1)
+        console.log(myLibrary)
+    });
+    
 }
 
 
@@ -101,7 +114,7 @@ addBtn.addEventListener('click', (event) => {
     const pages = getPages();
     const status = getStatus();
 
-    if(bookForm.reportValidity()){
+    if (bookForm.reportValidity()) {
         createBook(title, author, pages, status);
         bookForm.reset();
         dialogAddBook.close();
@@ -122,3 +135,8 @@ closeDialogbtn.addEventListener('click', () => {
     dialogAddBook.close();
 })
 
+
+function findArrayIndex(bookID) {
+    const index = myLibrary.findIndex(Book => Book.id == bookID);
+    return index;
+}
