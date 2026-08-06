@@ -2,6 +2,10 @@
     margin: 0px;
 }
 
+html:has(dialog[open]) {
+    overflow: hidden;
+}
+
 body {
     background-color: #d9cdcd;
 }
@@ -21,7 +25,7 @@ header button {
     border: none;
     border-radius: 4px;
     color: #ffffff;
-    background-color: rgb(10, 194, 10);
+    background-color: #0ac20a;
 }
 
 header button:hover {
@@ -29,19 +33,30 @@ header button:hover {
     border: 1px solid green;
 }
 
-.dialog-addBook {
+dialog {
     margin: auto;   
 }
 
-.dialog-addBook form {
-    border: 1px solid black;
+dialog {
+    border: 3px solid rgb(224, 56, 56);
+    border-radius: 30px;
+    background-color: #fffaf1;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.523);
+    backdrop-filter: blur(2px);
+}
+
+dialog form {
     padding: 20px;
-    width: 400px;
+    width: 250px;
     height: auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
+
 
 form div {
     display: flex;
@@ -60,8 +75,36 @@ form .buttons {
 
 form button {
     width: 50vw;
-
 }
+
+.add {
+    border: none;
+    background-color: #0ac20a;
+    color: white;
+    padding: 5px 9px;
+    border-radius: 4px;
+    border: 1px solid #fffaf1;
+}
+
+.add:hover {
+    background-color: #44af0e;
+    border: 1px solid green;
+}
+
+.close {
+    border: none;
+    background-color: #ee5151;
+    color: white;
+    padding: 5px 9px;
+    border-radius: 4px;
+    border: 1px solid #fffaf1;
+}
+
+.close:hover {
+    background-color: #cb0505;
+    border: 1px solid red;
+}
+
 
 main {
     display: grid;
