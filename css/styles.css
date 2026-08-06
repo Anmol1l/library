@@ -2,6 +2,10 @@
     margin: 0px;
 }
 
+body {
+    background-color: #d9cdcd;
+}
+
 header {
     padding: 30px 30px 8px 30px;
     height: 100px;
@@ -57,4 +61,102 @@ form .buttons {
 form button {
     width: 50vw;
 
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-auto-rows: 200px;
+    gap: 25px;
+    padding: 20px 40px;
+}
+
+.book-card h2 {
+    color: black;
+}
+
+hr {
+    border-top: 1px solid black;
+    margin: 5px 0px;
+}
+
+/* book-card for read books */
+
+.book-card.read {
+    border-radius: 7px;
+    padding: 20px 30px 10px 30px;
+    background-color: white;
+    border-left: 5px solid #44af0e;
+    color: #545454;
+}
+
+.read .status::after {
+    content: " read";
+}
+
+.read .status {
+    max-height: fit-content;
+    padding: 1px 7px;
+    background-color: #44af0e43;
+    color: #44af0e;
+    border: 1px solid #44af0e;
+    border-radius: 30px;
+}
+
+/* book-card for unread books */
+
+.book-card.unread {
+    border-radius: 7px;
+    padding: 20px 30px 10px 30px;
+    background-color: white;
+    border-left: 5px solid red;
+    color: #545454;
+}
+
+.unread .status::after {
+    content: " not read";
+}
+
+.unread .status {
+    max-height: fit-content;
+    padding: 1px 7px;
+    background-color: #ff000043;
+    color: red;
+    border: 1px solid red;
+    border-radius: 30px;
+}
+
+/* end */
+
+
+.book-card .book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.book-info .status-delete {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.book-info .delete {
+    padding: 0px;
+    border: none;
+    background-color: white;
+}
+
+.book-info .delete img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    padding: 3px;
+    border: 2px solid white;
+}
+
+.delete img:hover {
+    border: 2px solid red;
 }
