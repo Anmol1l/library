@@ -46,7 +46,6 @@ function getStatus() {
 
 
 function createBookCard(myLibrary) {
-    console.log(myLibrary)
     const book = myLibrary.at(-1);
     const main = document.querySelector('main');
 
@@ -64,13 +63,13 @@ function createBookCard(myLibrary) {
 
     const title = document.createElement('h2');
     title.textContent = book.title;
-    bookCard.appendChild(title); // add title
+    bookCard.appendChild(title);
 
     const lineBreak = document.createElement('hr');
-    bookCard.appendChild(lineBreak);  // add hr
+    bookCard.appendChild(lineBreak);
 
     const bookInfo = document.createElement('div');
-    bookInfo.classList.add('book-info');  // create .bookinfo div
+    bookInfo.classList.add('book-info');
 
     const author = document.createElement('p');
     author.textContent = book.author;
@@ -94,14 +93,17 @@ function createBookCard(myLibrary) {
     bookCard.appendChild(bookInfo);
     main.appendChild(bookCard);
 
+    // delete button functionality
+
     const deleteBtn = statusDelete.querySelector('.delete');
 
     deleteBtn.addEventListener("click", () => {
         const index = findArrayIndex(bookCard.dataset.id);
         bookCard.remove();
         myLibrary.splice(index,1)
-        // console.log(myLibrary)
     });
+
+    // status button functionality
 
     const toggleStatus = statusDelete.querySelector('.status');
     toggleStatus.addEventListener('click', () => {
@@ -118,10 +120,7 @@ function createBookCard(myLibrary) {
             bookCard.classList.add('read');
             changeObjectStatus(index);
         }
-
-
     })
-    
 }
 
 
