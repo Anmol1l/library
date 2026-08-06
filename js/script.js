@@ -44,6 +44,55 @@ function getStatus() {
 
 }
 
+
+function createBookCard(myLibrary) {
+    console.log(myLibrary)
+    const book = myLibrary.at(-1);
+    const main = document.querySelector('main');
+
+    const bookCard = document.createElement('div');
+    bookCard.classList.add('book-card');
+
+    if(book.status){
+        bookCard.classList.add('read');
+    }
+    else {
+        bookCard.classList.add('unread')
+    }
+
+
+    const title = document.createElement('h2');
+    title.textContent = book.title;
+    bookCard.appendChild(title); // add title
+
+    const lineBreak = document.createElement('hr');
+    bookCard.appendChild(lineBreak);  // add hr
+
+    const bookInfo = document.createElement('div');
+    bookInfo.classList.add('book-info');  // create .bookinfo div
+
+    const author = document.createElement('p');
+    author.textContent = book.author;
+
+    const pages = document.createElement('p');
+    pages.textContent = `${book.pages} pages`;
+
+    bookInfo.appendChild(author);
+    bookInfo.appendChild(pages);
+    
+    const statusDelete = document.createElement('div');
+    statusDelete.classList.add('status-delete');
+    statusDelete.innerHTML = `
+        <button class="status"><span style="vertical-align: middle;">&bull;</span></button>
+        <button class="delete"><img src="images-and-icons/icons/delete.svg" alt="delete"></button>
+    `;
+    bookInfo.appendChild(statusDelete);
+
+    bookCard.appendChild(bookInfo);
+    main.appendChild(bookCard);
+}
+
+
 addBtn.addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -55,7 +104,9 @@ addBtn.addEventListener('click', (event) => {
     if(bookForm.reportValidity()){
         createBook(title, author, pages, status);
         bookForm.reset();
-    }  
+        dialogAddBook.close();
+        createBookCard(myLibrary);
+    }
 });
 
 
