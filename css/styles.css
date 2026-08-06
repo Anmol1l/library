@@ -66,7 +66,6 @@ form button {
 main {
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
-    grid-auto-rows: 200px;
     gap: 25px;
     padding: 20px 40px;
 }
@@ -84,7 +83,7 @@ hr {
 
 .book-card.read {
     border-radius: 7px;
-    padding: 20px 30px 10px 30px;
+    padding: 20px 30px 0px 30px;
     background-color: white;
     border-left: 5px solid #44af0e;
     color: #545454;
@@ -107,7 +106,7 @@ hr {
 
 .book-card.unread {
     border-radius: 7px;
-    padding: 20px 30px 10px 30px;
+    padding: 20px 30px 0px 30px;
     background-color: white;
     border-left: 5px solid red;
     color: #545454;
@@ -128,15 +127,21 @@ hr {
 
 /* end */
 
+.book-card.read,
+.book-card.unread {
+    display: flex;
+    flex-direction: column;
+}
 
 .book-card .book-info {
     display: flex;
     flex-direction: column;
     gap: 9px;
+    flex: 1;  
 }
 
 .book-info .status-delete {
-    margin-top: 15px;
+    margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
