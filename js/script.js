@@ -100,8 +100,27 @@ function createBookCard(myLibrary) {
         const index = findArrayIndex(bookCard.dataset.id);
         bookCard.remove();
         myLibrary.splice(index,1)
-        console.log(myLibrary)
+        // console.log(myLibrary)
     });
+
+    const toggleStatus = statusDelete.querySelector('.status');
+    toggleStatus.addEventListener('click', () => {
+        const index = findArrayIndex(bookCard.dataset.id);
+
+        if(bookCard.classList.contains('read')) {
+            bookCard.classList.remove('read');
+            bookCard.classList.add('unread');
+            changeObjectStatus(index);
+        }
+
+        else if(bookCard.classList.contains('unread')) {
+            bookCard.classList.remove('unread');
+            bookCard.classList.add('read');
+            changeObjectStatus(index);
+        }
+
+
+    })
     
 }
 
@@ -139,4 +158,8 @@ closeDialogbtn.addEventListener('click', () => {
 function findArrayIndex(bookID) {
     const index = myLibrary.findIndex(Book => Book.id == bookID);
     return index;
+}
+
+function changeObjectStatus (index) {
+    myLibrary[index].status = !myLibrary[index].status;
 }
