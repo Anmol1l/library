@@ -109,6 +109,7 @@ form button {
 main {
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
+    grid-auto-rows: 200px;
     gap: 25px;
     padding: 20px 40px;
 }
