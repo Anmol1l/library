@@ -1,20 +1,21 @@
 const myLibrary = [];
 
-function Book(title, author, pages, status) {
-
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
+class Book {
+    constructor(title, author, pages, status) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
     }
 
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
+    changeStatus() {
+        this.status = !this.status;
+    }
 }
 
 function createBook(title, author, pages, status) {
 
-    const book = new Book (title, author, pages, status);
+    const book = new Book(title, author, pages, status);
     book.id = crypto.randomUUID();
     myLibrary.push(book);
 }
@@ -44,10 +45,26 @@ function getStatus() {
 
 }
 
+addBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const title = getTitle();
+    const author = getAuthor();
+    const pages = getPages();
+    const status = getStatus();
+
+    if (bookForm.reportValidity()) {
+        createBook(title, author, pages, status);
+        bookForm.reset();
+        dialogAddBook.close();
+        createBookCard(myLibrary);
+    }
+});
+
 
 function createBookCard(myLibrary) {
-    const book = myLibrary.at(-1);
     const main = document.querySelector('main');
+    const book = myLibrary.at(-1);
 
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
@@ -88,57 +105,16 @@ function createBookCard(myLibrary) {
     `;
     bookInfo.appendChild(statusDelete);
 
-
-
     bookCard.appendChild(bookInfo);
     main.appendChild(bookCard);
 
-    // delete button functionality
 
     const deleteBtn = statusDelete.querySelector('.delete');
-
-    deleteBtn.addEventListener("click", () => {
-        const index = findArrayIndex(bookCard.dataset.id);
-        bookCard.remove();
-        myLibrary.splice(index,1)
-    });
-
-    // status button functionality
+    deleteBook(deleteBtn, bookCard);
 
     const toggleStatus = statusDelete.querySelector('.status');
-    toggleStatus.addEventListener('click', () => {
-        const index = findArrayIndex(bookCard.dataset.id);
-
-        if(bookCard.classList.contains('read')) {
-            bookCard.classList.remove('read');
-            bookCard.classList.add('unread');
-            changeObjectStatus(index);
-        }
-
-        else if(bookCard.classList.contains('unread')) {
-            bookCard.classList.remove('unread');
-            bookCard.classList.add('read');
-            changeObjectStatus(index);
-        }
-    })
+    changeCardStatus(book,toggleStatus, bookCard);
 }
-
-
-addBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    const title = getTitle();
-    const author = getAuthor();
-    const pages = getPages();
-    const status = getStatus();
-
-    if (bookForm.reportValidity()) {
-        createBook(title, author, pages, status);
-        bookForm.reset();
-        dialogAddBook.close();
-        createBookCard(myLibrary);
-    }
-});
 
 
 const openAddBookbtn = document.querySelector('.open-addBook');
@@ -159,6 +135,30 @@ function findArrayIndex(bookID) {
     return index;
 }
 
-function changeObjectStatus (index) {
-    myLibrary[index].status = !myLibrary[index].status;
+function deleteBook(deleteBtn, bookCard) {
+
+    deleteBtn.addEventListener("click", () => {
+        const index = findArrayIndex(bookCard.dataset.id);
+        bookCard.remove();
+        myLibrary.splice(index, 1)
+    });
+}
+
+function changeCardStatus(book,toggleStatusBtn, bookCard) {
+
+    toggleStatusBtn.addEventListener('click', () => {
+        const index = findArrayIndex(bookCard.dataset.id);
+
+        if (bookCard.classList.contains('read')) {
+            bookCard.classList.remove('read');
+            bookCard.classList.add('unread');
+            book.changeStatus(index);
+        }
+
+        else if (bookCard.classList.contains('unread')) {
+            bookCard.classList.remove('unread');
+            bookCard.classList.add('read');
+            book.changeStatus(index);
+        }
+    })
 }
